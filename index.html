@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legacy 2K26 • Special Invite</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#0f2027; --bg2:#203a43; --bg3:#2c5364; --accent:#ff7e5f; --accent2:#feb47b;
+    }
+    *{box-sizing:border-box}
+    body {
+      margin: 0; font-family: 'Poppins', sans-serif; color: #fff; text-align: center; overflow-x: hidden;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(255,255,255,.06), transparent),
+                  linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
+    }
+
+    /* floating hearts */
+    .heart{ position: fixed; bottom:-20px; font-size: 18px; opacity:.8; animation: floatUp linear forwards }
+    @keyframes floatUp{ to{ transform: translateY(-110vh) scale(1.2); opacity:0 } }
+
+    /* fireworks canvas */
+    #fx{ position: fixed; inset:0; pointer-events:none }
+
+    .container { padding: 40px 16px 80px }
+
+    h1 { font-size: clamp(2rem, 5vw, 3rem); margin: 10px 0; letter-spacing:.5px }
+    h2 { font-weight: 300; margin: 0 0 20px; opacity:.9 }
+
+    .badge{ display:inline-block; padding:6px 12px; border-radius:999px; background:rgba(255,255,255,.12); backdrop-filter: blur(8px); font-size:.8rem }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(14px);
+      border-radius: 22px; padding: 24px; margin: 18px auto; max-width: 720px;
+      box-shadow: 0 20px 40px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.08);
+      animation: slideUp .9s ease both;
+    }
+
+    .grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap:10px; margin-top:10px }
+
+    .btn {
+      margin-top: 10px; padding: 12px 18px; border: none; border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      color: white; font-size: .95rem; cursor: pointer; transition: .25s; box-shadow: 0 8px 20px rgba(0,0,0,.25);
+    }
+    .btn:hover { transform: translateY(-2px) scale(1.04) }
+
+    .btn.secondary{ background: transparent; border:1px solid rgba(255,255,255,.35) }
+
+    .hidden { display: none }
+
+    .type{ min-height: 72px; line-height:1.6 }
+
+    .highlight{ color:#ffd3c7 }
+
+    .footer { margin-top: 30px; font-size: 0.85rem; opacity: .7 }
+
+    @keyframes slideUp { from { transform: translateY(40px); opacity: 0 } to { transform: translateY(0); opacity: 1 } }
+  </style>
+</head>
+<body>
+<canvas id="fx"></canvas>
+
+<div class="container">
+  <div class="badge">Exclusive Invite</div>
+  <h1>Legacy 2K26</h1>
+  <h2>Not the end, but a beginning of a beautiful tomorrow ✨</h2>
+
+  <div class="card">
+    <div id="typed" class="type"></div>
+
+    <div class="grid">
+      <div><strong>📅 Date</strong><br>March 31 (Tuesday)</div>
+      <div><strong>⏰ Time</strong><br>10:00 AM onwards<br><span class="highlight">Lunch @ 12 PM</span></div>
+      <div><strong>📍 Venue</strong><br>Ramanujan Bhavan</div>
+    </div>
+
+    <div class="grid">
+      <button class="btn" onclick="reveal()">Open Special Invite 💌</button>
+      <button class="btn secondary" onclick="playMusic()">Play Music 🎵</button>
+    </div>
+  </div>
+
+  <div id="special" class="card hidden">
+    <h2>Assalamu Alaikum Adil Bhai ❤️</h2>
+    <p>Aapko hamari taraf se dil se dawat hai farewell function ke liye.</p>
+    <p>Aapki presence hamare liye <span class="highlight">bahut special</span> hai.</p>
+    <p><strong>We are waiting for you 😊</strong></p>
+  </div>
+
+  <div class="card">
+    <h2>Multi‑Language Invite 🌍</h2>
+    <div class="grid">
+      <button class="btn" onclick="setLang('te')">Telugu</button>
+      <button class="btn" onclick="setLang('hi')">Hindi</button>
+      <button class="btn" onclick="setLang('ur')">Urdu</button>
+    </div>
+    <p id="lang" style="margin-top:14px"></p>
+  </div>
+
+  <div class="footer">Crafted with ❤️ just for you</div>
+</div>
+
+<audio id="bgm" preload="auto"  controls loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  // typing effect
+  const text = "They came, they saw, they conquered!\nNow it's time to give our seniors the loudest goodbye ever.\nWe celebrate your legacy with music, madness, and memories.";
+  const el = document.getElementById('typed');
+  let i = 0;
+  (function type(){
+    if(i <= text.length){
+      el.innerHTML = text.slice(0,i).replace(/\n/g,'<br>');
+      i++; requestAnimationFrame(type);
+    }
+  })();
+
+  // special reveal + effects
+  function reveal(){
+    document.getElementById('special').classList.remove('hidden');
+    spawnHearts(); fireworkBurst(); playMusic();
+  }
+
+  // music
+function playMusic(){
+  const a = document.getElementById('bgm');
+
+  a.currentTime = 0; // restart every time
+  a.muted = false;
+
+  a.play().then(() => {
+    console.log("Audio started");
+  }).catch((err) => {
+    console.log("Error:", err);
+    alert("Click again to enable sound 🔊");
+  });
+}
+
+  // language switch
+  const map = {
+    te: "ఇది ముగింపు కాదు, అందమైన రేపటి ప్రారంభం! మీ రాక కోసం ఎదురుచూస్తున్నాం 😊",
+    hi: "यह अंत नहीं, बल्कि एक खूबसूरत शुरुआत है! आपकी उपस्थिति हमारे लिए खास है 😊",
+    ur: "یہ اختتام نہیں بلکہ ایک خوبصورت شروعات ہے! ہم آپ کے منتظر ہیں 😊"
+  };
+  function setLang(k){ document.getElementById('lang').innerText = map[k]; }
+
+  // hearts
+  function spawnHearts(){
+    for(let n=0;n<18;n++){
+      const h = document.createElement('div');
+      h.className='heart'; h.textContent = '❤️';
+      const left = Math.random()*100; const dur = 4 + Math.random()*4;
+      h.style.left = left + 'vw'; h.style.animationDuration = dur + 's';
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(), dur*1000);
+    }
+  }
+
+  // simple fireworks
+  const c = document.getElementById('fx'); const ctx = c.getContext('2d');
+  function resize(){ c.width = innerWidth; c.height = innerHeight } resize(); addEventListener('resize', resize);
+  let particles = [];
+  function fireworkBurst(){
+    const x = Math.random()*c.width*0.8 + c.width*0.1;
+    const y = Math.random()*c.height*0.4 + c.height*0.1;
+    for(let i=0;i<80;i++){
+      const angle = Math.random()*Math.PI*2; const speed = Math.random()*3+2;
+      particles.push({x,y,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,life:80});
+    }
+  }
+  function tick(){
+    ctx.clearRect(0,0,c.width,c.height);
+    particles.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.vy+=0.02; p.life--;
+      ctx.beginPath(); ctx.arc(p.x,p.y,2,0,Math.PI*2); ctx.fill();
+    });
+    particles = particles.filter(p=>p.life>0);
+    requestAnimationFrame(tick);
+  } tick();
+</script>
+</body>
+</html>
